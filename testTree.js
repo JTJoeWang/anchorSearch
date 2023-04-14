@@ -41,24 +41,14 @@ function mixTree(target, mini, max, count) {
         let iMax = currentMax;
         let iMini = currentMini;
         let arg = []
-        while(iMax >= target) {
-            let point = iMax - compare + 1
-            if(point > target) {
-                arg.push(`${point}:${iMax}`)
-                iMax = iMax - compare
-            } else {
-                break;
-            }
+        while(iMax - compare + 1 > target) {
+            arg.push(`${iMax - compare + 1}:${iMax}`)
+            iMax = iMax - compare
         }
         let argUnshift = []
-        while(iMini <= target) {
-            let point = iMini + compare - 1
-            if (point < target) {
-                argUnshift.unshift(`${iMini}:${point}`)
-                iMini = iMini + compare
-            } else {
-                break;
-            }
+        while(iMini + compare - 1 < target) {
+            argUnshift.unshift(`${iMini}:${iMini + compare - 1}`)
+            iMini = iMini + compare
         }
         args[`${currentMini}:${currentMax}`] = arg.concat(argUnshift)
         currentMini = iMini
@@ -79,5 +69,5 @@ function mixTree(target, mini, max, count) {
 
 
 setInterval(() => {
-    mixTree(Math.floor(Math.random()*1024), 1, 1024, 2)
+    mixTree(Math.floor(Math.random()*81)+10000, 10001, 10081, 3)
 }, 1000);
